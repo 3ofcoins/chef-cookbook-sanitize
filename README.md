@@ -7,10 +7,30 @@ environments (tested on EC2 images, Hetzner "minimal" installations,
 and debootstrap-created LXC images). At the moment it supports only
 Ubuntu, Debian support is planned.
 
-Recipes
--------
+This cookbook is developed on GitHub at
+https://github.com/3ofcoins/chef-cookbook-sanitize
 
-### sanitize::default
+Requirements
+============
+
+* apt
+* build-essential
+* iptables
+
+Attributes
+==========
+
+* `sanitize.iptables` -- if false, does not install and configure
+  iptables; defaults to true.
+
+Usage
+=====
+
+Include `recipe[sanitize]` in your run list after your user accounts
+are created and sudo and ssh is configured.
+
+sanitize::default
+-----------------
 
 This is the default "base settings" setup. It should be called
 **after** shell user accounts and sudo are configured, as it locks
@@ -31,25 +51,6 @@ default login user and direct root access.
 8. Installs and configures iptables, opens SSH port (optional, but
    enabled by default)
 9. Installs `can-has` command as a symlink to `apt-get`
-
-Requirements
-============
-
-* apt
-* build-essential
-* iptables
-
-Attributes
-==========
-
-* `sanitize.iptables` -- if false, does not install and configure
-  iptables; defaults to true.
-
-Usage
-=====
-
-Include `recipe[sanitize]` in your run list after your user accounts
-are created and sudo and ssh is configured.
 
 Roadmap
 =======
