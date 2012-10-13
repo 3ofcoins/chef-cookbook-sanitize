@@ -1,0 +1,1 @@
+default['sanitize']['iptables'] = true
