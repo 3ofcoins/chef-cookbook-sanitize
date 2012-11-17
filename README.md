@@ -23,6 +23,9 @@ Attributes
 * `sanitize.iptables` -- if false, does not install and configure
   iptables; defaults to true.
 
+* `sanitize.install_packages` -- a list of packages to install on all
+  machines; defaults to an empty list.
+
 Usage
 =====
 

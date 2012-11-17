@@ -111,3 +111,7 @@ if node['sanitize']['iptables']
   include_recipe 'iptables'
   iptables_rule "port_ssh"
 end
+
+node['sanitize']['install_packages'].each do |pkg_name|
+  package pkg_name
+end
