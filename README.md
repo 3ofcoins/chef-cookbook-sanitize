@@ -23,6 +23,24 @@ Attributes
 * `sanitize.iptables` -- if false, does not install and configure
   iptables; defaults to true.
 
+* `sanitize.apt_repositories` -- dictionary of APT repositories to
+  add. Key is repository name, value is remaining attributes of the
+  `apt_repository` resource provided by the `apt` cookbook (see
+  http://community.opscode.com/cookbooks/apt). If you set
+  `distribution` to `"lsb_codename"`, `node['lsb']['codename']`
+  attribute will be used instead. Example:
+  
+    :sanitize => {
+      :apt_repositories => {
+        :percona => {
+          :uri => 'http://repo.percona.com/apt',
+          :distribution => 'lsb_codename',
+          :components => [ 'main' ],
+          :deb_src => true,
+          :keyserver => 'hkp://keys.gnupg.net',
+          :key => '1C4CBDCDCD2EFD2A'
+        }}}
+
 * `sanitize.install_packages` -- a list of packages to install on all
   machines; defaults to an empty list.
 
