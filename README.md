@@ -23,6 +23,22 @@ Attributes
 * `sanitize.iptables` -- if false, does not install and configure
   iptables; defaults to true.
 
+* `sanitize.ports` -- if `sanitize.iptables` is true, specifies TCP
+  ports to open. It is a dictionary, where keys are port numbers or
+  service names, and values can be:
+  
+  * `true` -- open port for any source address
+  * `false` -- close port
+  * a string -- will be used as `--src` argument to `iptables`
+  * an array of strings -- for many different `--src` entries
+  * **TODO:** It should be possible to specify a node search query
+  
+  Default:
+  
+  ```ruby
+  default['sanitize']['ports']['ssh'] = true
+  ```
+
 * `sanitize.apt_repositories` -- dictionary of APT repositories to
   add. Key is repository name, value is remaining attributes of the
   `apt_repository` resource provided by the `apt` cookbook (see
@@ -48,7 +64,9 @@ Usage
 =====
 
 Include `recipe[sanitize]` in your run list after your user accounts
-are created and sudo and ssh is configured.
+are created and sudo and ssh is configured, and otherwise as early as
+possible. In particular, if you use `omnibus_updater` cookbook, it
+should be after `sanitize` in the run list.
 
 sanitize::default
 -----------------

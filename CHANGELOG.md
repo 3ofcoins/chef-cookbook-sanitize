@@ -1,5 +1,11 @@
 # CHANGELOG for sanitize
 
+## 0.2.0
+
+* Chef 11 compatibility
+* Configure iptables not only for ssh
+* Use `user` resource instead of `usermod` / `userdel` hacks
+
 ## 0.1.0:
 
 * Initial release of sanitize

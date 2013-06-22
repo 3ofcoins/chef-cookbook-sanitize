@@ -26,43 +26,45 @@
 
 ## Prerequisites and system information
 
-require 'etc'
-
-node['build_essential']['compiletime'] = true
+node.set['build_essential']['compiletime'] = true
 
 include_recipe 'apt'
 include_recipe 'build-essential'
 
-## Delete default 'ubuntu' user if it exists; it's provided by the EC2 image.
+chef_gem "ruby-shadow"
 
-ubuntu_user = begin
-                Etc.getpwnam('ubuntu')
-              rescue ArgumentError
-                nil
-              end
+#
+# Delete old system users
+# -----------------------
+
+#
+# Delete default 'ubuntu' user if it exists; it's provided by the EC2 image.
 
 # HACK: Forget about ubuntu user we're about to force delete
 Dir.chdir('/root') if Dir.getwd == '/home/ubuntu'
 ENV['HOME'] = '/root' if ENV['HOME'] == '/home/ubuntu'
 Gem.user_home = '/root' if Gem.user_home == '/home/ubuntu'
 
-# FIXME: use 'user' resource?
-execute "userdel -r -f ubuntu || true" do
-  only_if { ubuntu_user }
+user 'ubuntu' do
+  action :remove
+  supports :manage_home => true
 end
 
-## Lock out root account - sudo-only. Make sure this runs AFTER your
-## users accounts and sudoers file are set up.
-
-chef_gem "ruby-shadow"
-
+#
+# Lock out root account - sudo-only. Make sure this runs AFTER your
+# users accounts and sudoers file are set up.
 user "root" do
-  password '!*'
+  action :lock
 end
 
-## Sanitize directory structure
+#
+# Sanitize directory structure
 
 directory "/opt"
+directory "/srv"
+directory Chef::Config[:file_cache_path] do
+  recursive true
+end
 
 ## Locale
 
@@ -109,7 +111,7 @@ end
 
 if node['sanitize']['iptables']
   include_recipe 'iptables'
-  iptables_rule "port_ssh"
+  iptables_rule "ports_sanitize"
 end
 
 node['sanitize']['apt_repositories'].each do |name, repo|
