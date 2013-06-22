@@ -1,5 +1,10 @@
 # CHANGELOG for sanitize
 
+## 0.2.1
+
+* Include trailing newline in /etc/timezone to avoid regeneration
+* Don't run locale-gen if system knows about en_US.UTF-8
+
 ## 0.2.0
 
 * Chef 11 compatibility

@@ -68,7 +68,14 @@ end
 
 ## Locale
 
-execute 'locale-gen en_US.UTF-8'
+execute 'locale-gen en_US.UTF-8' do
+  not_if do
+    cmd = Mixlib::ShellOut.new('locale', '-a')
+    cmd.run_command
+    cmd.error!
+    cmd.stdout.lines.map(&:strip).any? { |ln| ln =~ /^en_US.(?i:utf-?8)$/ }
+  end
+end
 
 file '/etc/default/locale' do
   content 'LANG=en_US.UTF-8'
@@ -83,7 +90,7 @@ execute "configure time zone" do
 end
 
 file '/etc/timezone' do
-  content 'Etc/UTC'
+  content "Etc/UTC\n"
   notifies :run, "execute[configure time zone]", :immediately
 end
 
