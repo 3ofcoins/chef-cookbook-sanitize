@@ -26,16 +26,12 @@
 
 ## Prerequisites and system information
 
-node.set['build_essential']['compiletime'] = true
-
 include_recipe 'apt'
-include_recipe 'build-essential'
-
-chef_gem "ruby-shadow"
+include_recipe 'chef-client::config'
 
 #
-# Delete old system users
-# -----------------------
+# Delete or disable old system users
+# ----------------------------------
 
 #
 # Delete default 'ubuntu' user if it exists; it's provided by the EC2 image.
@@ -48,6 +44,8 @@ Gem.user_home = '/root' if Gem.user_home == '/home/ubuntu'
 user 'ubuntu' do
   action :remove
   supports :manage_home => true
+  ignore_failure true
+  not_if { node['sanitize']['keep_access'] }
 end
 
 #
@@ -55,6 +53,7 @@ end
 # users accounts and sudoers file are set up.
 user "root" do
   action :lock
+  not_if { node['sanitize']['keep_access'] }
 end
 
 #
@@ -66,7 +65,8 @@ directory Chef::Config[:file_cache_path] do
   recursive true
 end
 
-## Locale
+#
+# Locale
 
 execute 'locale-gen en_US.UTF-8' do
   not_if do
@@ -94,33 +94,44 @@ file '/etc/timezone' do
   notifies :run, "execute[configure time zone]", :immediately
 end
 
-## Misc
+#
+# Misc
 
+# Update Omnibus Chef client
+include_recipe 'omnibus_updater'
+
+# Lock down log that may be created with insufficient permissions
 file "/var/log/chef/client.log" do
   mode "0600"
+  only_if { File.exists?('/var/log/chef/client.log') }
 end
 
+# Why not?
 link "/usr/local/bin/can-has" do
   to "/usr/bin/apt-get"
 end
 
+# Don't clutter motd.
 %w(10-help-text 51_update-motd).each do |fn|
   file "/etc/update-motd.d/#{fn}" do
     action :delete
   end
 end
 
+# Vim
 package "vim-nox"
 
 execute "update-alternatives --set editor /usr/bin/vim.nox" do
   not_if "update-alternatives --query editor |grep -q '^Value: /usr/bin/vim.nox$'"
 end
 
+# Firewall
 if node['sanitize']['iptables']
   include_recipe 'iptables'
   iptables_rule "ports_sanitize"
 end
 
+# Custom packages
 node['sanitize']['apt_repositories'].each do |name, repo|
   distribution_name = if repo['distribution'] == 'lsb_codename'
                         node['lsb']['codename']

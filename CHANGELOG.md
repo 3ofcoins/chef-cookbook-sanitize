@@ -1,5 +1,16 @@
 # CHANGELOG for sanitize
 
+## 0.3.0
+
+* include recipe `chef-client::config`
+* add attribute `sanitize.keep_access` to enable debugging access
+  problems
+* don't lock down logfile if it doesn't exist
+* don't include `build-essential` recipe, Omnibus Chef includes
+  ruby-shadow
+* include recipe `omnibus_updater`
+* unbreak bootstrap: continue Chef run if deleting `ubuntu` user is not possible
+
 ## 0.2.1
 
 * Include trailing newline in /etc/timezone to avoid regeneration
