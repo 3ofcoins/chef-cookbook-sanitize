@@ -10,4 +10,4 @@ supports 'ubuntu', ">= 10.04"
 depends 'apt'
 depends 'chef-client'
 depends 'iptables'
-depends 'omnibus-updater'
+depends 'omnibus_updater'
