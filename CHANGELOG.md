@@ -1,5 +1,9 @@
 # CHANGELOG for sanitize
 
+## 0.3.1
+
+* Don't upload backup files
+
 ## 0.3.0
 
 * include recipe `chef-client::config`
