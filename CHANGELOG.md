@@ -1,5 +1,9 @@
 # CHANGELOG for sanitize
 
+## 0.4.0
+
+* Split into multiple cookbooks
+
 ## 0.3.1
 
 * Don't upload backup files
