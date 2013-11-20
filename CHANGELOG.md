@@ -1,5 +1,10 @@
 # CHANGELOG for sanitize
 
+## 0.4.1
+
+* Refactor iptables code, support multiport module.
+* Don't bomb on OSX
+
 ## 0.4.0
 
 * Split into multiple cookbooks

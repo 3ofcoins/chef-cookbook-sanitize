@@ -39,7 +39,10 @@ Attributes
   * a string -- will be used as `--src` argument to `iptables`
   * an array of strings -- for many different `--src` entries
   * **TODO:** It should be possible to specify a node search query
-  
+
+  If the key is a list of ports (`port,port`) or a range
+  (`port1:port2`), then the `multiport` iptables module will be used.
+
   Default:
   
   ```ruby
