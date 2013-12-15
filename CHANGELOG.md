@@ -1,5 +1,9 @@
 # CHANGELOG for sanitize
 
+## 0.4.2
+
+* Support Ubuntu PPAs
+
 ## 0.4.1
 
 * Refactor iptables code, support multiport module.

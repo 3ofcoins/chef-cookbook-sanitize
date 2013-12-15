@@ -45,27 +45,39 @@ Attributes
 
   Default:
   
-  ```ruby
-  default['sanitize']['ports']['ssh'] = true
-  ```
+```ruby
+default['sanitize']['ports']['ssh'] = true
+```
 
 * `sanitize.apt_repositories` -- dictionary of APT repositories to
   add. Key is repository name, value is remaining attributes of the
   `apt_repository` resource provided by the `apt` cookbook (see
   http://community.opscode.com/cookbooks/apt). If you set
   `distribution` to `"lsb_codename"`, `node['lsb']['codename']`
-  attribute will be used instead. Example:
+  attribute will be used instead.:
+
+  Ubuntu's PPAs can be specified as a simple string, or as a `ppa`
+  key; the second form allows for customizing some of the attributes.
+
   
-    :sanitize => {
-      :apt_repositories => {
-        :percona => {
-          :uri => 'http://repo.percona.com/apt',
-          :distribution => 'lsb_codename',
-          :components => [ 'main' ],
-          :deb_src => true,
-          :keyserver => 'hkp://keys.gnupg.net',
-          :key => '1C4CBDCDCD2EFD2A'
-        }}}
+```ruby
+:sanitize => {
+  :apt_repositories => {
+    :percona => {
+      :uri => 'http://repo.percona.com/apt',
+      :distribution => 'lsb_codename',
+      :components => [ 'main' ],
+      :deb_src => true,
+      :keyserver => 'hkp://keys.gnupg.net',
+      :key => '1C4CBDCDCD2EFD2A'
+    },
+    :ruby_ng => 'ppa:brightbox/ruby-ng',
+    :nginx => {
+      :ppa => 'nginx/stable',
+      :distribution => 'precise' # force distribution regardless of lsb.codename
+    }
+    }}
+```
 
 * `sanitize.install_packages` -- a list of packages to install on all
   machines; defaults to an empty list.
