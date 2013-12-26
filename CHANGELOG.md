@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.5.0
+-----
+
+* New recipe to install chef-helpers and chef-sugar.
+
 0.4.2
 -----
 
