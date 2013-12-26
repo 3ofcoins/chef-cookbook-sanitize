@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.5.1
+-----
+* Drop helpers recipe, install gems instead
+
 0.5.0
 -----
 

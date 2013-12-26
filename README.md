@@ -82,6 +82,40 @@ default['sanitize']['ports']['ssh'] = true
 * `sanitize.install_packages` -- a list of packages to install on all
   machines; defaults to an empty list.
 
+* `sanitize.chef_gems` -- Chef gems to install. By default, installs
+  [chef-helpers](), [chef-sugar](), [chef-rewind](), and
+  [chef-vault](). Keys are gem names, values can be:
+  - `false` -- skip the package (use that to override defaults; you
+    can also set version to false)
+  - `true` -- install best version available, don't upgrade
+    (equivalent to just writing `chef_gem "gem_name"` in recipe
+    code)
+  - string with version requirement
+  - directory, where following keys are recognized:
+    - `version` - `false`, `true` (default), or version string
+    - `require` - `true` (default) means require gem after installing;
+      `false` means don't require anything; if a string is given,
+      it's name of library to require.
+
+  Example (which is also the default set of gems):
+
+```ruby
+:sanitize => {
+  :chef_gems => {
+    'chef-helpers' => '~> 0.1',
+    'chef-sugar' => {
+      :version => '~> 1.1',
+      :require => 'chef/sugar'
+    },
+    'chef-rewind' => {
+      :version => '~> 0.0.8',
+      :require => 'chef/rewind'
+    },
+    :chef-vault => '~> 2.1'
+  }
+}
+```
+
 Usage
 =====
 

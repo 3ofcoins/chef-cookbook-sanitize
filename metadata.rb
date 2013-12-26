@@ -1,5 +1,5 @@
 name "sanitize"
-version "0.5.0"
+version "0.5.1"
 
 maintainer       "Maciej Pasternacki"
 maintainer_email "maciej@pasternacki.net"
@@ -16,4 +16,4 @@ depends 'dmg'
 depends 'homebrew'
 depends 'iptables'
 depends 'omnibus_updater'
-depends 'chef-sugar', '~> 1.1'
+depends 'chef-helpers', '~> 0.1'
