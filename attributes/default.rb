@@ -5,6 +5,8 @@ default['sanitize']['packages'] = {}
 default['sanitize']['apt_repositories'] = {}
 default['sanitize']['ports']['ssh'] = true
 default['sanitize']['chef_helpers_version'] = '>= 0.0.7'
+default['sanitize']['locale']['default'] = 'en_US.UTF-8'
+default['sanitize']['locale']['available'] = []
 
 default['sanitize']['chef_gems']['chef-helpers'] = '~> 0.1'
 default['sanitize']['chef_gems']['chef-sugar']['version'] = '~> 1.1'

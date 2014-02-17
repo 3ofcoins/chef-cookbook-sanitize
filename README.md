@@ -116,6 +116,10 @@ default['sanitize']['ports']['ssh'] = true
 }
 ```
 
+* `sanitize.locale.default="en_US.UTF-8"`,
+  `sanitize.locale.available=[]` -- list of locales to make available
+  on the server, and a locale to set as default.
+
 Usage
 =====
 

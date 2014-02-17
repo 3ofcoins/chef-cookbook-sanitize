@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.5.3
+-----
+* `sanitize.locale.available` & `sanitize.locale.default` attributes
+
 0.5.2
 -----
 * Fix dependencies
