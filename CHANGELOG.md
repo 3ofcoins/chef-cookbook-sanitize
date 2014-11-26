@@ -1,6 +1,13 @@
 Changes
 =======
 
+Unreleased
+----------
+* Configure iptables prefix & suffix to work with new iptables
+  cookbook
+* Add `sanitize.accept_interfaces` attribute
+* Add ip6tables
+
 0.5.3
 -----
 * `sanitize.locale.available` & `sanitize.locale.default` attributes
