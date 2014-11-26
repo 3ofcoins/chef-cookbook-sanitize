@@ -4,8 +4,9 @@ before_install:
 install:
   - sudo dpkg -i /tmp/chefdk.deb
 before_script:
-  # TODO: chef gem install -f
+  - berks install
   - chef gem install strainer --no-rdoc --no-ri
+  # TODO: chef gem install -f
 script:
   - chef exec strainer test
 notifications:
