@@ -1,3 +1,3 @@
-knife test: bundle exec knife cookbook test $COOKBOOK
-foodcritic: bundle exec foodcritic $SANDBOX/$COOKBOOK
-# chefspec: bundle exec rspec $SANDBOX/$COOKBOOK
+knife test: knife cookbook test $COOKBOOK
+foodcritic: foodcritic $SANDBOX/$COOKBOOK
+# chefspec: rspec $SANDBOX/$COOKBOOK
