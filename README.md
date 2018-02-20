@@ -39,33 +39,86 @@ Attributes
   * a string -- will be used as `--src` argument to `iptables`
   * an array of strings -- for many different `--src` entries
   * **TODO:** It should be possible to specify a node search query
-  
+
+  If the key is a list of ports (`port,port`) or a range
+  (`port1:port2`), then the `multiport` iptables module will be used.
+
   Default:
   
-  ```ruby
-  default['sanitize']['ports']['ssh'] = true
-  ```
+```ruby
+default['sanitize']['ports']['ssh'] = true
+```
 
 * `sanitize.apt_repositories` -- dictionary of APT repositories to
   add. Key is repository name, value is remaining attributes of the
   `apt_repository` resource provided by the `apt` cookbook (see
   http://community.opscode.com/cookbooks/apt). If you set
   `distribution` to `"lsb_codename"`, `node['lsb']['codename']`
-  attribute will be used instead. Example:
+  attribute will be used instead.:
+
+  Ubuntu's PPAs can be specified as a simple string, or as a `ppa`
+  key; the second form allows for customizing some of the attributes.
+
   
-    :sanitize => {
-      :apt_repositories => {
-        :percona => {
-          :uri => 'http://repo.percona.com/apt',
-          :distribution => 'lsb_codename',
-          :components => [ 'main' ],
-          :deb_src => true,
-          :keyserver => 'hkp://keys.gnupg.net',
-          :key => '1C4CBDCDCD2EFD2A'
-        }}}
+```ruby
+:sanitize => {
+  :apt_repositories => {
+    :percona => {
+      :uri => 'http://repo.percona.com/apt',
+      :distribution => 'lsb_codename',
+      :components => [ 'main' ],
+      :deb_src => true,
+      :keyserver => 'hkp://keys.gnupg.net',
+      :key => '1C4CBDCDCD2EFD2A'
+    },
+    :ruby_ng => 'ppa:brightbox/ruby-ng',
+    :nginx => {
+      :ppa => 'nginx/stable',
+      :distribution => 'precise' # force distribution regardless of lsb.codename
+    }
+    }}
+```
 
 * `sanitize.install_packages` -- a list of packages to install on all
   machines; defaults to an empty list.
+
+* `sanitize.chef_gems` -- Chef gems to install. By default, installs
+  [chef-helpers](), [chef-sugar](), [chef-rewind](), and
+  [chef-vault](). Keys are gem names, values can be:
+  - `false` -- skip the package (use that to override defaults; you
+    can also set version to false)
+  - `true` -- install best version available, don't upgrade
+    (equivalent to just writing `chef_gem "gem_name"` in recipe
+    code)
+  - string with version requirement
+  - directory, where following keys are recognized:
+    - `version` - `false`, `true` (default), or version string
+    - `require` - `true` (default) means require gem after installing;
+      `false` means don't require anything; if a string is given,
+      it's name of library to require.
+
+  Example (which is also the default set of gems):
+
+```ruby
+:sanitize => {
+  :chef_gems => {
+    'chef-helpers' => '~> 0.1',
+    'chef-sugar' => {
+      :version => '~> 1.1',
+      :require => 'chef/sugar'
+    },
+    'chef-rewind' => {
+      :version => '~> 0.0.8',
+      :require => 'chef/rewind'
+    },
+    :chef-vault => '~> 2.1'
+  }
+}
+```
+
+* `sanitize.locale.default="en_US.UTF-8"`,
+  `sanitize.locale.available=[]` -- list of locales to make available
+  on the server, and a locale to set as default.
 
 Usage
 =====
