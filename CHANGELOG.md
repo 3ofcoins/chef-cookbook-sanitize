@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.5.4
+-----
+* Install package `locales` to fix https://bugs.launchpad.net/cloud-images/+bug/1682305
+
 0.5.3
 -----
 * `sanitize.locale.available` & `sanitize.locale.default` attributes
