@@ -1,6 +1,10 @@
 Changes
 =======
 
+0.5.5
+-----
+* Install package `tzdata`, it is apparently missing too
+
 0.5.4
 -----
 * Install package `locales` to fix https://bugs.launchpad.net/cloud-images/+bug/1682305

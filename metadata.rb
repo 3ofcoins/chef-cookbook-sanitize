@@ -1,5 +1,5 @@
 name "sanitize"
-version "0.5.4"
+version "0.5.5"
 
 maintainer       "Maciej Pasternacki"
 maintainer_email "maciej@pasternacki.net"
