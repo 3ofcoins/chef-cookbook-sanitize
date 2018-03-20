@@ -19,6 +19,10 @@ locales.map! { |loc| normalize_locale(loc) }
 known_locales = Set[*shell_out!('locale -a').stdout.lines.map(&:strip)]
 known_locales.map!  { |loc| normalize_locale(loc) }
 
+package 'locales'
+
+package 'tzdata'
+
 locales.each do |loc|
   execute "locale-gen #{loc}" do
     not_if { known_locales.include?(loc) }
