@@ -1,9 +1,6 @@
 Changes
 =======
 
-Unreleased
-----------
-
 1.0.0
 -----
 Not an "it's mature and stable" 1.0, but a major version bump due to
@@ -25,6 +22,7 @@ incompatibilities.
 * Add `sanitize.accept_interfaces` attribute
 * Add ip6tables
 * Deprecation fix on `user` resource
+* Follow Foodcritic & Rubocop suggestions
 
 0.5.5
 -----
