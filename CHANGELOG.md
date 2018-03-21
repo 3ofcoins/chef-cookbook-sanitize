@@ -1,6 +1,10 @@
 Changes
 =======
 
+1.0.1
+-----
+* Drop leftover dependencies
+
 1.0.0
 -----
 Not an "it's mature and stable" 1.0, but a major version bump due to

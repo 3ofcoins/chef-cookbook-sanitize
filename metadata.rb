@@ -16,6 +16,4 @@ chef_version '>= 12.14'
 
 depends 'apt'
 depends 'chef-client'
-depends 'dmg'
-depends 'homebrew'
 depends 'iptables'
