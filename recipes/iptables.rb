@@ -8,7 +8,7 @@ file '/etc/iptables.d/prefix' do
 -A INPUT -j FWR
 EOF
   mode '0600'
-  notifies :run, resources(:execute => "rebuild-iptables")
+  notifies :run, 'execute[rebuild-iptables]'
 end
 
 file '/etc/iptables.d/suffix' do
@@ -17,7 +17,7 @@ file '/etc/iptables.d/suffix' do
 -A FWR -p udp -j REJECT --reject-with icmp-port-unreachable
 EOF
   mode '0600'
-  notifies :run, resources(:execute => "rebuild-iptables")
+  notifies :run, 'execute[rebuild-iptables]'
 end
 
 rules = []
