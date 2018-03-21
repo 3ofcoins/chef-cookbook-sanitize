@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Delete or disable old system users
 # ==================================
 
@@ -11,13 +13,13 @@ Gem.user_home = '/root' if Gem.user_home == '/home/ubuntu'
 
 user 'ubuntu' do
   action :remove
-  supports :manage_home => true
+  manage_home true
   ignore_failure true
 end
 
 #
 # Lock out root account - sudo-only. Make sure this runs AFTER your
 # users accounts and sudoers file are set up.
-user "root" do
+user 'root' do
   action :lock
 end

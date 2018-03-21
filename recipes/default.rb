@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook Name:: sanitize
 # Recipe:: default
@@ -27,15 +29,12 @@
 case node['platform_family']
 when 'debian'
   include_recipe 'sanitize::apt'
-when 'mac_os_x'
-  include_recipe 'dmg'
-  include_recipe 'homebrew'
 end
 
 include_recipe 'sanitize::lockdown' unless node['sanitize']['keep_access']
 include_recipe 'sanitize::filesystem'
 include_recipe 'sanitize::locale'
 include_recipe 'sanitize::chef-client'
-include_recipe 'sanitize::iptables' if node['sanitize']['iptables'] && node['os'] == 'linux'
+include_recipe 'sanitize::iptables' \
+  if node['sanitize']['iptables'] && node['os'] == 'linux'
 include_recipe 'sanitize::editor'
-include_recipe 'sanitize::chef_gems'

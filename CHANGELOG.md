@@ -1,6 +1,29 @@
 Changes
 =======
 
+1.0.0
+-----
+Not an "it's mature and stable" 1.0, but a major version bump due to
+incompatibilities.
+
+* **Breaking changes**
+  - Stop installing `chef_gem`s (use `gem` declaration in some
+    cookbook's metadata instead)
+  - Drop support of Ubuntu below 14.04 and whatever was supported on
+    OSX
+  - Stop forcing log file mode (chef-client cookbook has a
+    `chef_client.log_perm` attribute now)
+  - Don't call `omnibus_updater` (which has been deprecated in favour
+    of `chef_client_updater` anyway), leave it to the user
+  - Depend on chef-client 12.14 for Ruby 2.3
+
+* Configure iptables prefix & suffix to work with new iptables
+  cookbook
+* Add `sanitize.accept_interfaces` attribute
+* Add ip6tables
+* Deprecation fix on `user` resource
+* Follow Foodcritic & Rubocop suggestions
+
 0.5.5
 -----
 * Install package `tzdata`, it is apparently missing too

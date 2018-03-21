@@ -1,18 +1,21 @@
-name "sanitize"
-version "0.5.5"
+# frozen_string_literal: true
 
-maintainer       "Maciej Pasternacki"
-maintainer_email "maciej@pasternacki.net"
-license          "MIT"
-description      "Sanitizes system by providing a sane default configuration"
+name 'sanitize'
+version '1.0.0'
+
+maintainer       'Maciej Pasternacki'
+maintainer_email 'maciej@pasternacki.net'
+license          'MIT'
+description      'Sanitizes system by providing a sane default configuration'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+source_url 'https://github.com/3ofcoins/chef-cookbook-sanitize'
+issues_url 'https://github.com/3ofcoins/chef-cookbook-sanitize/issues'
 
-supports 'ubuntu', ">= 10.04"
-supports 'mac_os_x'
+supports 'ubuntu', '>= 14.04'
+chef_version '>= 12.14'
 
 depends 'apt'
 depends 'chef-client'
 depends 'dmg'
 depends 'homebrew'
 depends 'iptables'
-depends 'omnibus_updater'

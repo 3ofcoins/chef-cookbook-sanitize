@@ -27,6 +27,9 @@ Attributes
 * `sanitize.iptables` -- if false, does not install and configure
   iptables; defaults to true.
 
+* `sanitize.ip6tables` -- if false, does not install base ip6tables
+  rules along with iptables; defaults to true
+
 * `sanitize.keep_access` -- if true, don't disable direct access users
   (ubuntu user or root password); defaults to false.
 
@@ -35,18 +38,31 @@ Attributes
   service names, and values can be:
   
   * `true` -- open port for any source address
-  * `false` -- close port
+  * `false` -- don't open port
   * a string -- will be used as `--src` argument to `iptables`
   * an array of strings -- for many different `--src` entries
   * **TODO:** It should be possible to specify a node search query
 
   If the key is a list of ports (`port,port`) or a range
   (`port1:port2`), then the `multiport` iptables module will be used.
+  
+  If the value is `true` and `sanitize.ip6tables` is `true`, the port
+  will be open in ip6tables; ip6tables treats strings as false.
 
   Default:
   
 ```ruby
 default['sanitize']['ports']['ssh'] = true
+```
+
+* `sanitize.accept_interfaces` -- if `sanitize.iptables` is true,
+  specifies interfaces to unconditionally accept traffic. It should be
+  a dictionary, where key is name of interface, and value should be
+  true to accept traffic, or false to not accept (which lets override
+  `true` values). Default:
+  
+```ruby
+default['sanitize']['accept_interfaces']['lo'] = true
 ```
 
 * `sanitize.apt_repositories` -- dictionary of APT repositories to
