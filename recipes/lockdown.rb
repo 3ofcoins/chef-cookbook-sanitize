@@ -11,7 +11,7 @@ Gem.user_home = '/root' if Gem.user_home == '/home/ubuntu'
 
 user 'ubuntu' do
   action :remove
-  supports :manage_home => true
+  manage_home true
   ignore_failure true
 end
 
