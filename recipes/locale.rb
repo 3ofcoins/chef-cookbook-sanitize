@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Normalize local settings
 # ========================
 
@@ -17,7 +19,7 @@ locales << node['sanitize']['locale']['default']
 locales.map! { |loc| normalize_locale(loc) }
 
 known_locales = Set[*shell_out!('locale -a').stdout.lines.map(&:strip)]
-known_locales.map!  { |loc| normalize_locale(loc) }
+known_locales.map! { |loc| normalize_locale(loc) }
 
 package 'locales'
 
@@ -39,14 +41,14 @@ file '/etc/default/locale' do
   not_if { node['platform_family'] == 'mac_os_x' }
 end
 
-execute "configure time zone" do
+execute 'configure time zone' do
   action :nothing
-  command "dpkg-reconfigure -fnoninteractive tzdata"
+  command 'dpkg-reconfigure -fnoninteractive tzdata'
   only_if { node['platform_family'] == 'debian' }
 end
 
 file '/etc/timezone' do
   content "Etc/UTC\n"
-  notifies :run, "execute[configure time zone]", :immediately
+  notifies :run, 'execute[configure time zone]', :immediately
   only_if { node['platform_family'] == 'debian' }
 end

@@ -18,6 +18,7 @@ incompatibilities.
     `chef_client.log_perm` attribute now)
   - Don't call `omnibus_updater` (which has been deprecated in favour
     of `chef_client_updater` anyway), leave it to the user
+  - Depend on chef-client 12.14 for Ruby 2.3
 
 * Configure iptables prefix & suffix to work with new iptables
   cookbook

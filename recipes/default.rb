@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Cookbook Name:: sanitize
 # Recipe:: default
@@ -33,5 +35,6 @@ include_recipe 'sanitize::lockdown' unless node['sanitize']['keep_access']
 include_recipe 'sanitize::filesystem'
 include_recipe 'sanitize::locale'
 include_recipe 'sanitize::chef-client'
-include_recipe 'sanitize::iptables' if node['sanitize']['iptables'] && node['os'] == 'linux'
+include_recipe 'sanitize::iptables' \
+  if node['sanitize']['iptables'] && node['os'] == 'linux'
 include_recipe 'sanitize::editor'

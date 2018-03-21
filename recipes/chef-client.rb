@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Sanitize Chef client's environment
 
 include_recipe 'chef-client::config'

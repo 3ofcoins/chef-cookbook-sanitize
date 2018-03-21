@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 default['sanitize']['iptables'] = true
 default['sanitize']['ip6tables'] = true
 default['sanitize']['keep_access'] = false

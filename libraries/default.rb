@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Allow setting Gem.user_home attribute to be able to remove the
 # default 'ubuntu' user on the first run.
 module Gem
@@ -5,4 +7,3 @@ module Gem
     @user_home = value
   end
 end
-

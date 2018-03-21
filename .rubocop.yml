@@ -1,0 +1,8 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+Style/FileName:
+  # this file is old and can be used in a run list somewhere, don't
+  # rename it now
+  Exclude:
+    - recipes/chef-client.rb

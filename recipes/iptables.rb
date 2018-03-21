@@ -1,20 +1,22 @@
+# frozen_string_literal: true
+
 # iptables settings
 # =================
 
 include_recipe 'iptables'
 
 file '/etc/iptables.d/prefix' do
-  content <<EOF
--A INPUT -j FWR
+  content <<~EOF
+    -A INPUT -j FWR
 EOF
   mode '0600'
   notifies :run, 'execute[rebuild-iptables]'
 end
 
 file '/etc/iptables.d/suffix' do
-  content <<EOF
--A FWR -p tcp -m tcp --tcp-flags SYN,RST,ACK SYN -j REJECT --reject-with icmp-port-unreachable
--A FWR -p udp -j REJECT --reject-with icmp-port-unreachable
+  content <<~EOF
+    -A FWR -p tcp -m tcp --tcp-flags SYN,RST,ACK SYN -j REJECT --reject-with icmp-port-unreachable
+    -A FWR -p udp -j REJECT --reject-with icmp-port-unreachable
 EOF
   mode '0600'
   notifies :run, 'execute[rebuild-iptables]'
@@ -35,7 +37,7 @@ node['sanitize']['ports'].to_hash.each do |port, allows|
   Array(allows).map do |allow|
     next unless allow
     src_opt = case allow
-              when true then ""
+              when true then ''
               else           "--src #{allow}"
               end
     rules << "-p tcp -m tcp #{dst_opt} #{src_opt}"
@@ -43,8 +45,8 @@ node['sanitize']['ports'].to_hash.each do |port, allows|
 end
 rules.sort!
 
-iptables_rule "all_sanitize" do
-  variables :rules => rules
+iptables_rule 'all_sanitize' do
+  variables rules: rules
 end
 
 include_recipe 'sanitize::ip6tables' if node['sanitize']['ip6tables']

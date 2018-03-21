@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Delete or disable old system users
 # ==================================
 
@@ -18,6 +20,6 @@ end
 #
 # Lock out root account - sudo-only. Make sure this runs AFTER your
 # users accounts and sudoers file are set up.
-user "root" do
+user 'root' do
   action :lock
 end
