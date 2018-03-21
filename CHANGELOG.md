@@ -1,6 +1,10 @@
 Changes
 =======
 
+1.0.2
+-----
+* Update README and default attributes
+
 1.0.1
 -----
 * Drop leftover dependencies
