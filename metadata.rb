@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 name 'sanitize'
-version '1.0.1'
+version '1.0.2'
 
 maintainer       'Maciej Pasternacki'
 maintainer_email 'maciej@pasternacki.net'
